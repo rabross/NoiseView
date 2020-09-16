@@ -7,7 +7,6 @@ import android.view.SurfaceView
 import com.rabross.noise.Noise
 import com.rabross.noise.NoiseEngine
 
-
 class NoiseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
