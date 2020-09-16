@@ -1,4 +1,4 @@
-package com.rabross.noise.view
+package com.rabross.noise
 
 import android.content.Context
 import android.util.AttributeSet
