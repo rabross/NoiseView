@@ -4,15 +4,27 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.rabross.noise.Noise
-import com.rabross.noise.NoiseEngine
 
 class NoiseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
     private val noise: Noise by lazy {
-        NoiseEngine(holder)
+        NoiseEngine(holder, pelSize)
+    }
+
+    private var pelSize: Int = PEL_SIZE_DEFAULT
+
+    init {
+        context.theme.obtainStyledAttributes(
+            attrs, R.styleable.NoiseView, 0, 0
+        ).apply {
+            try {
+                pelSize = getInteger(R.styleable.NoiseView_pelSize, pelSize)
+            } finally {
+                recycle()
+            }
+        }
     }
 
     init {
@@ -29,5 +41,9 @@ class NoiseView @JvmOverloads constructor(
 
     override fun surfaceDestroyed(p0: SurfaceHolder) {
         noise.stop()
+    }
+
+    companion object {
+        const val PEL_SIZE_DEFAULT = 4
     }
 }

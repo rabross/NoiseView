@@ -6,12 +6,11 @@ import android.graphics.Paint
 import android.view.SurfaceHolder
 import java.util.*
 
-class NoiseEngine(private val surfaceHolder: SurfaceHolder) : Noise, Renderer {
+class NoiseEngine(private val surfaceHolder: SurfaceHolder, private val pelSize: Int) : Noise, Renderer {
 
     private val renderThread = RunnableRenderThread(this)
     private val paint = Paint()
     private val random = Random()
-    private val pelSize = 10
     private var width = 0
     private var height = 0
 
