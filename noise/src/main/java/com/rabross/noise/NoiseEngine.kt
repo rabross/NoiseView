@@ -10,7 +10,7 @@ class NoiseEngine(
     private val surfaceHolder: SurfaceHolder,
     private val pelSize: Int,
     private val noiseGenerator: NoiseGenerator
-) : Noise, Renderer {
+) : Renderer {
 
     private val renderThread = RunnableRenderThread(this)
     private val paint = Paint()
@@ -28,6 +28,19 @@ class NoiseEngine(
         }
     }
 
+    fun start() = renderThread.start()
+
+    fun stop() = renderThread.stop()
+
+    fun pause() = renderThread.pause()
+
+    fun resume() = renderThread.resume()
+
+    fun onSizeChanged(width: Int, height: Int) {
+        this.width = width
+        this.height = height
+    }
+
     private fun draw(canvas: Canvas) {
         var nextYPos = 0f
         while (nextYPos <= height) {
@@ -39,16 +52,6 @@ class NoiseEngine(
             }
             nextYPos += pelSize
         }
-    }
-
-    override fun start() = renderThread.start()
-    override fun stop() = renderThread.stop()
-    override fun pause() = renderThread.pause()
-    override fun resume() = renderThread.resume()
-
-    override fun onSizeChanged(width: Int, height: Int) {
-        this.width = width
-        this.height = height
     }
 
     private fun randomColor(): Int {

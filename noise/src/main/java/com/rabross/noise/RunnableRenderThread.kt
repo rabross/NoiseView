@@ -2,8 +2,9 @@ package com.rabross.noise
 
 class RunnableRenderThread(private val renderer: Renderer) : RenderThread, Runnable {
 
+    private val renderThread = Thread(this)
     private var running = false
-    private var paused = false
+    private var paused = true
 
     override fun run() {
         while (running) {
@@ -15,7 +16,7 @@ class RunnableRenderThread(private val renderer: Renderer) : RenderThread, Runna
     }
 
     override fun start() {
-        if (!running) Thread(this).start()
+        if (!isRunning()) renderThread.start()
         running = true
     }
 
@@ -28,7 +29,13 @@ class RunnableRenderThread(private val renderer: Renderer) : RenderThread, Runna
     }
 
     override fun stop() {
-        running = false
+        if (isRunning()) {
+            running = false
+            try {
+                renderThread.join()
+            } catch (e: InterruptedException) {
+            }
+        }
     }
 
     override fun isRunning() = running

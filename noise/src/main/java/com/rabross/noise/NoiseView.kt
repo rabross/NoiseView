@@ -4,17 +4,15 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.rabross.noise.generator.KotlinRandom
+import com.rabross.noise.generator.KotlinRandomNoiseGenerator
 
 class NoiseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
-    private val noise: Noise by lazy {
-        NoiseEngine(holder, pelSize, KotlinRandom())
-    }
-
     private var pelSize: Int = PEL_SIZE_DEFAULT
+
+    private val noiseEngine: NoiseEngine
 
     init {
         context.theme.obtainStyledAttributes(
@@ -26,22 +24,32 @@ class NoiseView @JvmOverloads constructor(
                 recycle()
             }
         }
-    }
 
-    init {
+        noiseEngine = NoiseEngine(holder, pelSize, KotlinRandomNoiseGenerator())
+
         holder.addCallback(this)
     }
 
-    override fun surfaceCreated(p0: SurfaceHolder) {
-        noise.start()
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        noiseEngine.start()
     }
 
-    override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
-        noise.onSizeChanged(p2, p3)
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        noiseEngine.resume()
     }
 
-    override fun surfaceDestroyed(p0: SurfaceHolder) {
-        noise.stop()
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        noiseEngine.onSizeChanged(width, height)
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        noiseEngine.pause()
+    }
+
+    override fun onDetachedFromWindow() {
+        noiseEngine.stop()
+        super.onDetachedFromWindow()
     }
 
     companion object {

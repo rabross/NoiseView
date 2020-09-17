@@ -1,6 +1,6 @@
 package com.rabross.noise.generator
 
-class JavaRandom: NoiseGenerator {
+class JavaRandomNoiseGenerator: NoiseGenerator {
 
     private val random by lazy { java.util.Random() }
 
