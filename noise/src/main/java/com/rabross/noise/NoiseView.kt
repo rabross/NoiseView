@@ -4,13 +4,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.rabross.noise.generator.KotlinRandom
 
 class NoiseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
     private val noise: Noise by lazy {
-        NoiseEngine(holder, pelSize)
+        NoiseEngine(holder, pelSize, KotlinRandom())
     }
 
     private var pelSize: Int = PEL_SIZE_DEFAULT

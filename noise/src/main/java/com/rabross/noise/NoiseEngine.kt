@@ -4,13 +4,16 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.SurfaceHolder
-import java.util.*
+import com.rabross.noise.generator.NoiseGenerator
 
-class NoiseEngine(private val surfaceHolder: SurfaceHolder, private val pelSize: Int) : Noise, Renderer {
+class NoiseEngine(
+    private val surfaceHolder: SurfaceHolder,
+    private val pelSize: Int,
+    private val noiseGenerator: NoiseGenerator
+) : Noise, Renderer {
 
     private val renderThread = RunnableRenderThread(this)
     private val paint = Paint()
-    private val random = Random()
     private var width = 0
     private var height = 0
 
@@ -49,8 +52,7 @@ class NoiseEngine(private val surfaceHolder: SurfaceHolder, private val pelSize:
     }
 
     private fun randomColor(): Int {
-        val color = random.nextInt(256)
-//        val color = random.apply { setSeed(System.nanoTime()) }.nextInt(256)
+        val color = noiseGenerator.next() and 0xff
         return Color.argb(255, color, color, color)
     }
 }
