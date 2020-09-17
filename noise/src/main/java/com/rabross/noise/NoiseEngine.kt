@@ -10,12 +10,16 @@ class NoiseEngine(
     private val surfaceHolder: SurfaceHolder,
     private val pelSize: Int,
     private val noiseGenerator: NoiseGenerator
-) : Renderer {
+) : Renderer, SurfaceHolder.Callback {
 
     private val renderThread = RunnableRenderThread(this)
     private val paint = Paint()
     private var width = 0
     private var height = 0
+
+    init {
+        surfaceHolder.addCallback(this)
+    }
 
     override fun update() {}
 
@@ -28,6 +32,15 @@ class NoiseEngine(
         }
     }
 
+    override fun surfaceCreated(holder: SurfaceHolder) = resume()
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) = pause()
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        this.width = width
+        this.height = height
+    }
+
     fun start() = renderThread.start()
 
     fun stop() = renderThread.stop()
@@ -35,11 +48,6 @@ class NoiseEngine(
     fun pause() = renderThread.pause()
 
     fun resume() = renderThread.resume()
-
-    fun onSizeChanged(width: Int, height: Int) {
-        this.width = width
-        this.height = height
-    }
 
     private fun draw(canvas: Canvas) {
         var nextYPos = 0f
