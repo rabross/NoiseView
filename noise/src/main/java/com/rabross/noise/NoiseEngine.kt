@@ -21,6 +21,8 @@ class NoiseEngine(
         surfaceHolder.addCallback(this)
     }
 
+    private external fun render()
+
     override fun update() {}
 
     override fun draw() = with(surfaceHolder) {
@@ -32,7 +34,10 @@ class NoiseEngine(
         }
     }
 
-    override fun surfaceCreated(holder: SurfaceHolder) = resume()
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        resume()
+        render()
+    }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) = pause()
 
@@ -65,5 +70,11 @@ class NoiseEngine(
     private fun randomColor(): Int {
         val color = noiseGenerator.next() and 0xff
         return Color.argb(255, color, color, color)
+    }
+
+    companion object {
+        init {
+            System.loadLibrary("native-lib")
+        }
     }
 }
