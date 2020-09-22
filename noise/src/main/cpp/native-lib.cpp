@@ -52,6 +52,4 @@ Java_com_rabross_noise_NoiseEngine_render(
         __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to unlock and post to native window");
     }
     ANativeWindow_release(window);
-
-    __android_log_print(ANDROID_LOG_VERBOSE, "JNI", "hello");
 }
