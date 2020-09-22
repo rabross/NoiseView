@@ -22,17 +22,13 @@ class NoiseEngine(
         surfaceHolder.addCallback(this)
     }
 
-    private external fun render(surface: Surface)
+    private external fun nativeRender(surface: Surface)
 
     override fun update() {}
 
     override fun draw() = with(surfaceHolder) {
         if (surface.isValid) {
-            /*lockCanvas()?.run {
-                draw(this)
-                unlockCanvasAndPost(this)
-            }*/
-            render(surface)
+            nativeRender(surface)
         }
     }
 

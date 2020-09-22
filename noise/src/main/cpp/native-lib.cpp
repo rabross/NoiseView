@@ -10,7 +10,7 @@
 #include "native-lib.h"
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_rabross_noise_NoiseEngine_render(
+Java_com_rabross_noise_NoiseEngine_nativeRender(
         JNIEnv *env,
         jobject /* this */,
         jobject surface) {
@@ -45,7 +45,7 @@ Java_com_rabross_noise_NoiseEngine_render(
             int colorABGR = (255 << 24) | (colorValue << 16) | (colorValue << 8) | colorValue;
             line[x] = colorABGR;
         }
-        line = line + buffer.stride;
+        line += buffer.stride;
     }
 
     if (ANativeWindow_unlockAndPost(window) < 0) {
