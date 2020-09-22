@@ -11,8 +11,15 @@ include_directories(src/main/cpp/)
 
 find_library(
         log-lib
-        log )
+        log
+
+        native-window-lib
+        native-window
+)
 
 target_link_libraries(
         native-lib
-        ${log-lib} )
+        android
+        jnigraphics
+        ${log-lib}
+        ${native-window-lib} )

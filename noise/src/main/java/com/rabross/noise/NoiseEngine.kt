@@ -3,6 +3,7 @@ package com.rabross.noise
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.view.Surface
 import android.view.SurfaceHolder
 import com.rabross.noise.generator.NoiseGenerator
 
@@ -21,22 +22,22 @@ class NoiseEngine(
         surfaceHolder.addCallback(this)
     }
 
-    private external fun render()
+    private external fun render(surface: Surface)
 
     override fun update() {}
 
     override fun draw() = with(surfaceHolder) {
         if (surface.isValid) {
-            lockCanvas()?.run {
+            /*lockCanvas()?.run {
                 draw(this)
                 unlockCanvasAndPost(this)
-            }
+            }*/
+            render(surface)
         }
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         resume()
-        render()
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) = pause()
