@@ -8,6 +8,8 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
+        minSdkVersion 21
+
         consumerProguardFiles "consumer-rules.pro"
 
         externalNativeBuild {

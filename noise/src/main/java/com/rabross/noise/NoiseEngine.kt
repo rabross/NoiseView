@@ -36,7 +36,10 @@ class NoiseEngine(
         resume()
     }
 
-    override fun surfaceDestroyed(holder: SurfaceHolder) = pause()
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        pause()
+        holder.surface.release()
+    }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         this.width = width
