@@ -7,7 +7,6 @@
 #include <android/native_window.h>
 #include <android/native_window_jni.h>
 #include <cstdlib>
-#include "native-lib.h"
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_rabross_noise_NoiseEngine_nativeRender(
