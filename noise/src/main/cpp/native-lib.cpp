@@ -17,7 +17,7 @@ Java_com_rabross_noise_NoiseEngine_nativeRender(
 
     ANativeWindow *window = ANativeWindow_fromSurface(env, surface);
     if (window == nullptr) {
-        __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to get native window");
+        __android_log_print(ANDROID_LOG_DEBUG, "JNI", "unable to get native window");
         return;
     }
 
@@ -25,7 +25,7 @@ Java_com_rabross_noise_NoiseEngine_nativeRender(
     auto newHeight = ANativeWindow_getHeight(window) / pelSize;
     int32_t result = ANativeWindow_setBuffersGeometry(window, newWidth, newHeight, WINDOW_FORMAT_RGBA_8888);
     if (result < 0) {
-        __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to set buffers geometry");
+        __android_log_print(ANDROID_LOG_DEBUG, "JNI", "unable to set buffers geometry");
         ANativeWindow_release(window);
         window = nullptr;
         return;
@@ -34,7 +34,7 @@ Java_com_rabross_noise_NoiseEngine_nativeRender(
 
     ANativeWindow_Buffer buffer;
     if (ANativeWindow_lock(window, &buffer, nullptr) < 0) {
-        __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to lock native window");
+        __android_log_print(ANDROID_LOG_DEBUG, "JNI", "unable to lock native window");
         ANativeWindow_release(window);
         window = nullptr;
         return;
@@ -51,7 +51,7 @@ Java_com_rabross_noise_NoiseEngine_nativeRender(
     }
 
     if (ANativeWindow_unlockAndPost(window) < 0) {
-        __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to unlock and post to native window");
+        __android_log_print(ANDROID_LOG_DEBUG, "JNI", "unable to unlock and post to native window");
     }
     ANativeWindow_release(window);
 }
