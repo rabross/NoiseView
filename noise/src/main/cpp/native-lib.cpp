@@ -13,7 +13,8 @@ extern "C" JNIEXPORT void JNICALL
 Java_com_rabross_noise_NoiseEngine_nativeRender(
         JNIEnv *env,
         jobject /* this */,
-        jobject surface) {
+        jobject surface,
+        jint pelSize) {
 
     ANativeWindow *window = ANativeWindow_fromSurface(env, surface);
     if (window == nullptr) {
@@ -21,7 +22,9 @@ Java_com_rabross_noise_NoiseEngine_nativeRender(
         return;
     }
 
-    int32_t result = ANativeWindow_setBuffersGeometry(window, 0, 0, WINDOW_FORMAT_RGBA_8888);
+    auto newWidth = ANativeWindow_getWidth(window) / pelSize;
+    auto newHeight = ANativeWindow_getHeight(window) / pelSize;
+    int32_t result = ANativeWindow_setBuffersGeometry(window, newWidth, newHeight, WINDOW_FORMAT_RGBA_8888);
     if (result < 0) {
         __android_log_print(ANDROID_LOG_FATAL, "JNI", "unable to set buffers geometry");
         ANativeWindow_release(window);

@@ -22,13 +22,13 @@ class NoiseEngine(
         surfaceHolder.addCallback(this)
     }
 
-    private external fun nativeRender(surface: Surface)
+    private external fun nativeRender(surface: Surface, pelSize: Int)
 
     override fun update() {}
 
     override fun draw() = with(surfaceHolder) {
         if (surface.isValid) {
-            nativeRender(surface)
+            nativeRender(surface, pelSize)
         }
     }
 
