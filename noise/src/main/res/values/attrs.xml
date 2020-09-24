@@ -2,5 +2,9 @@
 <resources>
     <declare-styleable name="NoiseView">
         <attr name="pelSize" format="integer" />
+        <attr name="renderer" format="enum" >
+            <enum name="jvm" value="0"/>
+            <enum name="native_" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

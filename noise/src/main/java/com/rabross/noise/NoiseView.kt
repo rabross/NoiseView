@@ -3,13 +3,13 @@ package com.rabross.noise
 import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceView
-import com.rabross.noise.generator.KotlinRandomNoiseGenerator
 
 class NoiseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr) {
 
     private var pelSize: Int = PEL_SIZE_DEFAULT
+    private var nativeRender = 1
 
     private val noiseEngine: NoiseEngine
 
@@ -19,12 +19,13 @@ class NoiseView @JvmOverloads constructor(
         ).apply {
             try {
                 pelSize = getInteger(R.styleable.NoiseView_pelSize, pelSize)
+                nativeRender = getInt(R.styleable.NoiseView_renderer, 1)
             } finally {
                 recycle()
             }
         }
 
-        noiseEngine = NoiseEngine(holder, pelSize, KotlinRandomNoiseGenerator())
+        noiseEngine = NoiseEngine(holder, pelSize, nativeRender = nativeRender == 1)
     }
 
     override fun onAttachedToWindow() {
