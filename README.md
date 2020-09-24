@@ -5,3 +5,16 @@
 An Android view that simulates CRT TV static
 
 <img src="https://raw.githubusercontent.com/rabross/NoiseView/master/static.gif" width="256"/>
+
+## Dependency
+
+    implementation 'com.github.rabross:NoiseView:0.1.1'
+
+Add the JitPack repository to your build file
+
+    allprojects {
+        repositories {
+            ...
+            maven { url 'https://jitpack.io' }
+        }
+    }
