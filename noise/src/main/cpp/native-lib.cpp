@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_rabross_noise_NoiseEngine_nativeRender(
+Java_com_rabross_noise_renderer_NativeNoiseRenderer_nativeRender(
         JNIEnv *env,
         jobject /* this */,
         jobject surface,
