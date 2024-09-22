@@ -8,7 +8,7 @@ An Android view that simulates CRT TV static
 
 ## Dependency
 
-    implementation 'com.github.rabross:NoiseView:0.1.2'
+    implementation 'com.github.rabross:NoiseView:0.2.0'
 
 Add the JitPack repository to your `build.gradle` file
 
