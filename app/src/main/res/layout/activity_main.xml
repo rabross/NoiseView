@@ -4,4 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:pelSize="4"
-    app:renderer="native_"/>
+    app:renderer="native_"
+    app:style="color"/>

@@ -6,7 +6,8 @@ import com.rabross.noise.Renderer
 
 class NativeNoiseRenderer(
     private val surfaceHolder: SurfaceHolder,
-    private val pelSize: Int
+    private val pelSize: Int,
+    private val style: Int
 ) : Renderer {
 
     companion object {
@@ -18,8 +19,8 @@ class NativeNoiseRenderer(
     override fun update() {}
 
     override fun draw() {
-        nativeRender(surfaceHolder.surface, pelSize)
+        nativeRender(surfaceHolder.surface, pelSize, style)
     }
 
-    private external fun nativeRender(surface: Surface, pelSize: Int)
+    private external fun nativeRender(surface: Surface, pelSize: Int, style: Int)
 }

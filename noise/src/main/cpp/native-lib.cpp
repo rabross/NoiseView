@@ -13,7 +13,8 @@ Java_com_rabross_noise_renderer_NativeNoiseRenderer_nativeRender(
         JNIEnv *env,
         jobject /* this */,
         jobject surface,
-        jint pelSize) {
+        jint pelSize,
+        jint style) {
 
     ANativeWindow *window = ANativeWindow_fromSurface(env, surface);
     if (window == nullptr) {
@@ -43,9 +44,23 @@ Java_com_rabross_noise_renderer_NativeNoiseRenderer_nativeRender(
     auto *line = (uint32_t *) buffer.bits;
     for (int y = 0; y < buffer.height; y++) {
         for (int x = 0; x < buffer.width; x++) {
-            int colorValue = rand() % 255;
-            int colorABGR = (255 << 24) | (colorValue << 16) | (colorValue << 8) | colorValue;
-            line[x] = colorABGR;
+
+            if(style == 0){
+                int A = 255;
+                int B = rand() % 255;
+                int G = rand() % 255;
+                int R = rand() % 255;
+                int colorABGR = (A << 24) | (B << 16) | (G << 8) | R;
+                line[x] = colorABGR;
+            } else {
+                int colorValue = rand() % 255;
+                int A = 255;
+                int B = colorValue;
+                int G = colorValue;
+                int R = colorValue;
+                int colorABGR = (A << 24) | (B << 16) | (G << 8) | R;
+                line[x] = colorABGR;
+            }
         }
         line += buffer.stride;
     }

@@ -6,5 +6,9 @@
             <enum name="jvm" value="0"/>
             <enum name="native_" value="1"/>
         </attr>
+        <attr name="style" format="enum" >
+            <enum name="color" value="0"/>
+            <enum name="gray_scale" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

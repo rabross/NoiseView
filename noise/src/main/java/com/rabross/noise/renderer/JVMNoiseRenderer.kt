@@ -10,7 +10,8 @@ import com.rabross.noise.generator.NoiseGenerator
 class JVMNoiseRenderer(
     private val surfaceHolder: SurfaceHolder,
     private val noiseGenerator: NoiseGenerator,
-    private val pelSize: Int
+    private val pelSize: Int,
+    private val style: Int
 ) : Renderer {
 
     override fun update() {}
@@ -34,5 +35,16 @@ class JVMNoiseRenderer(
         }
     }
 
-    private fun randomColor() = (noiseGenerator.next() and 0xff).let { colour -> Color.argb(255, colour, colour, colour) }
+    private fun randomColor(): Int {
+
+        return when(style){
+            0 -> {
+                Color.argb(255, noiseGenerator.next(), noiseGenerator.next(), noiseGenerator.next())
+            }
+            else -> {
+                val color = noiseGenerator.next()
+                Color.argb(255, color, color, color)
+            }
+        }
+    }
 }

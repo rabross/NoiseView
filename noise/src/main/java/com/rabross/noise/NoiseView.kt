@@ -14,6 +14,7 @@ class NoiseView @JvmOverloads constructor(
 
     private var pelSize: Int = PEL_SIZE_DEFAULT
     private var rendererType = RENDERER_TYPE_DEFAULT
+    private var style = STYLE_DEFAULT
 
     private var renderThread: RenderThread
 
@@ -23,15 +24,16 @@ class NoiseView @JvmOverloads constructor(
         ).apply {
             try {
                 pelSize = getInteger(R.styleable.NoiseView_pelSize, PEL_SIZE_DEFAULT)
-                rendererType = getInt(R.styleable.NoiseView_renderer, 1)
+                rendererType = getInt(R.styleable.NoiseView_renderer, RENDERER_TYPE_DEFAULT)
+                style = getInt(R.styleable.NoiseView_style, STYLE_DEFAULT)
             } finally {
                 recycle()
             }
         }
 
         val renderer = when(rendererType) {
-            RENDERER_TYPE_NATIVE -> NativeNoiseRenderer(holder, pelSize)
-            else -> JVMNoiseRenderer(holder, KotlinRandomNoiseGenerator(),  pelSize)
+            RENDERER_TYPE_NATIVE -> NativeNoiseRenderer(holder, pelSize, style)
+            else -> JVMNoiseRenderer(holder, KotlinRandomNoiseGenerator(),  pelSize, style)
         }
 
         renderThread = RunnableRenderThread(SurfaceHolderAdapterRenderer(holder, renderer))
@@ -72,7 +74,11 @@ class NoiseView @JvmOverloads constructor(
         const val RENDERER_TYPE_JVM = 0
         const val RENDERER_TYPE_NATIVE = 1
 
+        const val STYLE_COLOR_NATIVE = 0
+        const val STYLE_GRAY_SCALE = 1
+
         const val PEL_SIZE_DEFAULT = 4
         const val RENDERER_TYPE_DEFAULT = RENDERER_TYPE_NATIVE
+        const val STYLE_DEFAULT = STYLE_COLOR_NATIVE
     }
 }
